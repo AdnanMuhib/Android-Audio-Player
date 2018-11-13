@@ -72,4 +72,13 @@
             tools:layout_editor_absoluteX="265dp"
             tools:layout_editor_absoluteY="347dp" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCreatePlayList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="OnBtnCreatePlaylist_Clicked"
+        android:text="Create Playlist"
+        tools:layout_editor_absoluteX="121dp"
+        tools:layout_editor_absoluteY="169dp" />
 </android.support.constraint.ConstraintLayout>
