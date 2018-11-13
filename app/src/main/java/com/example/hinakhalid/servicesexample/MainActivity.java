@@ -5,6 +5,7 @@ import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +29,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       songsPlaylist = getPlayList("/storage/sdcard/");
+        File extStore = Environment.getExternalStorageDirectory();
+
+        String sdpath, sd0path;
+        sdpath="/storage/extSdCard/";
+        if(new File("/storage/extSdCard/").exists())
+        {
+            sdpath="/storage/extSdCard/";
+            Log.i("Sd Cardext Path",sdpath);
+        }
+        if(new File("/storage/sdcard1/").exists())
+        {
+            sdpath="/storage/sdcard1/";
+            Log.i("Sd Card1 Path",sdpath);
+        }
+        if(new File("/storage/usbcard1/").exists())
+        {
+            sdpath="/storage/usbcard1/";
+            Log.i("USB Path",sdpath);
+        }
+        if(new File("/storage/sdcard0/").exists())
+        {
+            sd0path="/storage/sdcard0/";
+            Log.i("Sd Card0 Path",sd0path);
+        }
+       songsPlaylist = new ArrayList<HashMap<String, String>>();
+       getPlayList(sdpath);
         if(songsPlaylist != null){
             for(int i=0;i<songsPlaylist.size();i++){
                 String fileName=songsPlaylist.get(i).get("file_name");
@@ -39,31 +65,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     ArrayList<HashMap<String,String>> getPlayList(String rootPath) {
-            ArrayList<HashMap<String,String>> fileList = new ArrayList<>();
-
-
             try {
                 File rootFolder = new File(rootPath);
                 File[] files = rootFolder.listFiles(); //here you will get NPE if directory doesn't contains  any file,handle it like this.
                 for (File file : files) {
-                    if (file.isDirectory()) {
-                        if (getPlayList(file.getAbsolutePath()) != null) {
-                            fileList.addAll(getPlayList(file.getAbsolutePath()));
-                        } else {
-                            break;
-                        }
-                    } else if (file.getName().endsWith(".mp3")) {
+                    String filname = file.getName();
+                    if (file.getName().endsWith(".mp3")){
                         HashMap<String, String> song = new HashMap<>();
                         song.put("file_path", file.getAbsolutePath());
                         song.put("file_name", file.getName());
-                        fileList.add(song);
+                        songsPlaylist.add(song);
+                    }
+                    else if (file.isDirectory()) {
+                        if (getPlayList(file.getAbsolutePath()) != null) {
+                            //fileList.addAll(getPlayList(file.getAbsolutePath()));
+                            getPlayList(file.getAbsolutePath());
+                        } else {
+                            break;
+                        }
                     }
                 }
-                return fileList;
+                return songsPlaylist;
             } catch (Exception e) {
                 return null;
             }
-        }
+    }
     public  void OnBtnFolderSelect_Clicked(View view){
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -111,9 +137,26 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
         mediaPlayer.start();
+    }
+
+    public void PlayPause(View view){
 
     }
+
+
+    public void btnPlayNext_Clicked(View view){
+        playNextSong();
+    }
+
     public void playNextSong(){
+
+    }
+
+    public void btnPlayPrevious_Clicked(View view){
+        playPreviousSong();
+    }
+
+    public void playPreviousSong(){
 
     }
 }

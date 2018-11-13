@@ -4,24 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/BgApp"
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btnSelectFolder"
+        android:id="@+id/btnSelectSong"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:background="@android:color/holo_green_light"
         android:onClick="OnBtnFolderSelect_Clicked"
-        android:text="Select Music Folder"
+        android:text="Open Song"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="129dp" />
+
+    <Button
+        android:id="@+id/btnPlayPrev"
+        android:layout_width="103dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/holo_green_light"
+        android:onClick="btnPlayPrevious_Clicked"
+        android:text="Previous"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toStartOf="@+id/btnPlayPause3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="230dp" />
+
+    <Button
+        android:id="@+id/btnPlayNext"
+        android:layout_width="103dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/holo_green_light"
+        android:onClick="btnPlayNext_Clicked"
+        android:text="Next"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnPlayPause3"
+        tools:layout_editor_absoluteY="230dp" />
+
+    <Button
+        android:id="@+id/btnPlayPause3"
+        android:layout_width="103dp"
+        android:layout_height="51dp"
+        android:background="@android:color/holo_green_light"
+        android:onClick="PlayPause"
+        android:text="Play/Pause"
+        android:textColor="@android:color/white"
+        tools:layout_editor_absoluteX="141dp"
+        tools:layout_editor_absoluteY="230dp" />
 </android.support.constraint.ConstraintLayout>

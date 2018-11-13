@@ -16,10 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".Main2Activity"></activity>
 
         <service android:name=".playerService" />
         <service android:name=".playerService2" />
     </application>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>
