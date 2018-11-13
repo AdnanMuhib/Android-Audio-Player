@@ -4,58 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/BgApp"
+    android:background="@drawable/bgapp"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/btnSelectSong"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@android:color/holo_green_light"
         android:onClick="OnBtnFolderSelect_Clicked"
         android:text="Open Song"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="129dp" />
-
-    <Button
-        android:id="@+id/btnPlayPrev"
-        android:layout_width="103dp"
-        android:layout_height="51dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="8dp"
-        android:background="@android:color/holo_green_light"
-        android:onClick="btnPlayPrevious_Clicked"
-        android:text="Previous"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toStartOf="@+id/btnPlayPause3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="230dp" />
+        tools:layout_editor_absoluteY="8dp" />
 
-    <Button
-        android:id="@+id/btnPlayNext"
-        android:layout_width="103dp"
-        android:layout_height="51dp"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@android:color/holo_green_light"
-        android:onClick="btnPlayNext_Clicked"
-        android:text="Next"
-        android:textColor="@android:color/white"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnPlayPause3"
-        tools:layout_editor_absoluteY="230dp" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/btnPlayPause3"
-        android:layout_width="103dp"
-        android:layout_height="51dp"
-        android:background="@android:color/holo_green_light"
-        android:onClick="PlayPause"
-        android:text="Play/Pause"
-        android:textColor="@android:color/white"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="230dp" />
+        <Button
+            android:id="@+id/btnPlayPrev"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_weight="1"
+            android:background="@android:color/holo_green_light"
+            android:onClick="btnPlayPrevious_Clicked"
+            android:text="Previous"
+            android:textColor="@android:color/white"
+            tools:layout_editor_absoluteX="38dp"
+            tools:layout_editor_absoluteY="347dp" />
+
+        <Button
+            android:id="@+id/btnPlayPause"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_weight="1"
+            android:background="@android:color/holo_green_light"
+            android:onClick="PlayPause"
+            android:text="Play/Pause"
+            android:textColor="@android:color/white"
+            tools:layout_editor_absoluteX="155dp"
+            tools:layout_editor_absoluteY="347dp" />
+
+        <Button
+            android:id="@+id/btnPlayNext"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:background="@android:color/holo_green_light"
+            android:onClick="btnPlayNext_Clicked"
+            android:text="Next"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteX="265dp"
+            tools:layout_editor_absoluteY="347dp" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

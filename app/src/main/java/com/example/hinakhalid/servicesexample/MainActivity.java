@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("Sd Card0 Path",sd0path);
         }
        songsPlaylist = new ArrayList<HashMap<String, String>>();
-       getPlayList(sdpath);
+      // getPlayList(sdpath);
         if(songsPlaylist != null){
             for(int i=0;i<songsPlaylist.size();i++){
                 String fileName=songsPlaylist.get(i).get("file_name");
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("Songs"," name ="+fileName +" path = "+filePath);
             }
         }
+
     }
     ArrayList<HashMap<String,String>> getPlayList(String rootPath) {
             try {
@@ -90,11 +91,12 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
     }
-    public  void OnBtnFolderSelect_Clicked(View view){
+    public  void OnBtnFolderSelect_Clicked(View view) {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType("audio/mpeg");
-            startActivityForResult(intent, 1);
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        startActivityForResult(intent, 1);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -140,7 +142,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void PlayPause(View view){
-
+        if (mediaPlayer != null && mediaPlayer.isPlaying()){
+            mediaPlayer.pause();
+        }
+        else {
+            mediaPlayer.start();
+        }
     }
 
 
