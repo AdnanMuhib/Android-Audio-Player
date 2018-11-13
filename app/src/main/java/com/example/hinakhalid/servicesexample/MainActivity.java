@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Uri> playList;
     int current_song_index;
     int last_song_index;
-
+    TextView songName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //File extStore = Environment.getExternalStorageDirectory();
+        songName = (TextView)findViewById(R.id.textViewSongName);
         current_song_index = -1;
         last_song_index = -1;
     }
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.i("PATH","Address");
                     try {
                         this.playMusic(uri);
+                        songName.setText(getFileNameFromUri(uri));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                             last_song_index = playList.size() -1;
                             Uri firstSong = playList.get(0);
                             this.playMusic(firstSong);
+                            songName.setText(getFileNameFromUri(firstSong));
                         }
 
                     } catch (IOException e) {
@@ -150,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
     public void playNextSong() throws IOException {
         if (current_song_index < last_song_index){
             playMusic(playList.get(current_song_index+1));
+            songName.setText(getFileNameFromUri(playList.get(current_song_index+1)));
             current_song_index = current_song_index + 1;
         }
     }
@@ -161,23 +165,22 @@ public class MainActivity extends AppCompatActivity {
     public void playPreviousSong() throws IOException {
         if (current_song_index > 0){
             playMusic(playList.get(current_song_index-1));
+            songName.setText(getFileNameFromUri(playList.get(current_song_index-1)));
             current_song_index = current_song_index - 1;
         }
     }
     public  void showPlayList(View view){
+
+        if(playList == null){
+            return;
+        }
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivity.this);
-        //builderSingle.setIcon(R.drawable.ic_launcher);
-        builderSingle.setTitle("Select One Name:-");
+        builderSingle.setTitle("Select Audio File to Play");
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.select_dialog_singlechoice);
         for (Uri u: playList) {
             arrayAdapter.add(getFileNameFromUri(u));
         }
-        //arrayAdapter.add("Hardik");
-        //arrayAdapter.add("Archit");
-        //arrayAdapter.add("Jignesh");
-        //arrayAdapter.add("Umang");
-        //arrayAdapter.add("Gatti");
 
         builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -193,19 +196,10 @@ public class MainActivity extends AppCompatActivity {
                 String strName = arrayAdapter.getItem(which);
                 try {
                     playMusic(playList.get(which));
+                    songName.setText(getFileNameFromUri(playList.get(which)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-//                AlertDialog.Builder builderInner = new AlertDialog.Builder(MainActivity.this);
-//                builderInner.setMessage(strName);
-//                builderInner.setTitle("Your Selected Item is");
-//                builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog,int which) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//                builderInner.show();
             }
         });
         builderSingle.show();
